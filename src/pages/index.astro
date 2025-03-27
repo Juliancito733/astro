@@ -4,10 +4,14 @@ const tasks = [
   "Hacer la tarea de matemáticas",
   "Preparar la presentación",
   "Leer un libro",
+  "Escuchar a Taylor Swift",
 ];
 ---
-<html>
+<!DOCTYPE html>
+<html lang="es">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mis Tareas Pendientes</title>
     <style>
       /* Estilos para el botón */
@@ -30,14 +34,26 @@ const tasks = [
         font-size: 24px;
         color: green;
       }
+      /* Estilos para los botones de eliminar */
+      .delete-button {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-left: 10px;
+      }
+      .delete-button:hover {
+        background-color: #cc0000;
+      }
     </style>
   </head>
   <body>
     <h1>Mis Tareas Pendientes</h1>
-    <ul>
-      {tasks.map((task) => (
-        <li>{task}</li>
-      ))}
+    <p>Christian Julián Jiménez</p>
+    <ul id="tasksList">
+      <!-- Las tareas se agregarán aquí dinámicamente -->
     </ul>
 
     <!-- Botón rojo -->
@@ -48,8 +64,53 @@ const tasks = [
       ¡Hola, mundo!
     </div>
 
-    <!-- Script para manejar el clic del botón -->
     <script>
+      const tasks = [
+        "Estudiar Astro",
+        "Hacer la tarea de matemáticas",
+        "Preparar la presentación",
+        "Leer un libro",
+        "Escuchar a Taylor Swift",
+      ];
+
+      // Obtén el contenedor de las tareas
+      const tasksList = document.getElementById("tasksList");
+
+      // Función para renderizar las tareas
+      function renderTasks() {
+        tasksList.innerHTML = "";
+        tasks.forEach((task, index) => {
+          const taskItem = document.createElement("li");
+          taskItem.textContent = task;
+
+          // Crear el botón de eliminar
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Eliminar";
+          deleteButton.className = "delete-button";
+
+          // Manejar el clic en el botón de eliminar
+          deleteButton.addEventListener("click", () => {
+            deleteTask(index);
+          });
+
+          // Añadir el botón de eliminar a la tarea
+          taskItem.appendChild(deleteButton);
+
+          // Añadir la tarea al listado
+          tasksList.appendChild(taskItem);
+        });
+      }
+
+      // Función para eliminar tarea
+      function deleteTask(index) {
+        tasks.splice(index, 1); // Elimina la tarea en el índice especificado
+        renderTasks(); // Vuelve a renderizar la lista
+      }
+
+      // Inicializa la lista de tareas
+      renderTasks();
+
+      // Manejo del clic en el botón de "Haz clic aquí"
       const button = document.getElementById("helloButton");
       const messageContainer = document.getElementById("messageContainer");
 
